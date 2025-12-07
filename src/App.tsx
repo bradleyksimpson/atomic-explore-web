@@ -4,7 +4,7 @@
  */
 
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout } from './components/layout';
 import {
   AccountPage,
@@ -15,6 +15,23 @@ import {
 } from './pages';
 import { atomicService } from './services/atomicService';
 import './styles/global.css';
+
+// Handle SPA redirect from 404.html
+function SpaRedirectHandler() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('spa-redirect');
+    if (redirect) {
+      sessionStorage.removeItem('spa-redirect');
+      // Remove the basename from the path
+      const path = redirect.replace('/atomic-explore-web', '') || '/';
+      navigate(path, { replace: true });
+    }
+  }, [navigate]);
+
+  return null;
+}
 
 function App() {
   // Initialize Atomic SDK on app load
@@ -33,6 +50,7 @@ function App() {
 
   return (
     <BrowserRouter basename="/atomic-explore-web">
+      <SpaRedirectHandler />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<AccountPage />} />

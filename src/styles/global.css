@@ -132,11 +132,18 @@ input, textarea, select {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+}
+
+/* Atomic SDK modal backdrop - 60% opacity */
+[class*="modal-backdrop"],
+[class*="modalBackdrop"],
+.atomic-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Atomic SDK Launcher styling */

@@ -67,7 +67,7 @@ export function Layout() {
   }, []);
 
   // Initialize the overlay/modal container
-  // This shows cards as full-screen takeover with 50% opacity background
+  // This shows cards as full-screen takeover with 60% opacity background
   useEffect(() => {
     const instance = AtomicSDK.modalStreamContainer({
       streamContainerId: CONTAINERS.overlay,
