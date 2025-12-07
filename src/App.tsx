@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/atomic-explore-web">
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<AccountPage />} />
