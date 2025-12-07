@@ -122,8 +122,20 @@ interface ServiceDetailViewProps {
   onBack: () => void;
 }
 
+// Payees data matching iOS app
+const payeesData = [
+  { name: 'Alice Johnson', account: '11-1211-00000111-00', avatar: 'AJ', color: '#6B7280' },
+  { name: 'Global Enterprises', account: '11-1211-00000222-00', avatar: 'GE', color: '#0EA5E9' },
+  { name: 'Emily Davis', account: '11-1211-00000333-00', avatar: 'ED', color: '#6B7280' },
+  { name: 'Health & Wellness Corp.', account: '11-1211-00000444-00', avatar: 'HW', color: '#84CC16' },
+  { name: 'Sarah Miller', account: '11-1211-00000555-00', avatar: 'SM', color: '#6B7280' },
+  { name: 'Financial Advisors Group', account: '11-1211-00000666-00', avatar: 'FA', color: '#F97316' },
+  { name: 'Olivia Anderson', account: '11-1211-00000777-00', avatar: 'OA', color: '#6B7280' },
+];
+
 function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
   const isInsurance = service.id === 'insurance';
+  const isPayees = service.id === 'payees';
 
   return (
     <div className={styles.page}>
@@ -169,6 +181,20 @@ function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
                   <p className={styles.policyExpiry}>Policy period ends May 2027</p>
                 </div>
               </div>
+            </div>
+          ) : isPayees ? (
+            <div className={styles.payeesList}>
+              {payeesData.map((payee) => (
+                <div key={payee.account} className={styles.payeeCard}>
+                  <div className={styles.payeeAvatar} style={{ backgroundColor: payee.color }}>
+                    {payee.avatar}
+                  </div>
+                  <div className={styles.payeeDetails}>
+                    <h3 className={styles.payeeName}>{payee.name}</h3>
+                    <p className={styles.payeeAccount}>{payee.account}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
             <p className={styles.detailDescription}>
