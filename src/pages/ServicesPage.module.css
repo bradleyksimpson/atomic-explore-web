@@ -8,7 +8,7 @@
 
 /* Blue header strip for visual continuity */
 .headerStrip {
-  height: 20px;
+  height: 6px;
   background-color: var(--color-brand-blue);
 }
 
@@ -19,8 +19,6 @@
   gap: var(--spacing-xl);
   padding: var(--spacing-lg);
   background-color: var(--color-background);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  margin-top: calc(-1 * var(--radius-lg));
 }
 
 /* Left column: Services menu */
@@ -37,10 +35,17 @@
   margin-top: calc(var(--font-size-lg) + var(--spacing-md) + 4px);
 }
 
-/* Right column for detail view - allow more height */
+/* Right column for detail view - align with first list item */
 .cardColumnDetail {
   flex: 1;
   min-height: 400px;
+  /* Align with first list item: back button + title + description + margins */
+  margin-top: calc(
+    var(--spacing-sm) + (var(--font-size-md) * 1.5) +
+    var(--spacing-md) + (var(--font-size-xl) * 1.5) +
+    var(--spacing-lg) + (var(--font-size-md) * 1.5) +
+    var(--spacing-lg)
+  );
 }
 
 /* Dynamic card that grows with content */
@@ -269,6 +274,13 @@
 
   .cardColumn {
     order: -1;
+    margin-top: 0;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .cardColumnDetail {
+    order: -1;
+    margin-top: 0;
     margin-bottom: var(--spacing-lg);
   }
 }
