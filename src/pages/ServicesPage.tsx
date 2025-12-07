@@ -110,7 +110,7 @@ export function ServicesPage() {
 
         {/* Right column: Services Atomic container */}
         <div className={styles.cardColumn}>
-          <SingleCard containerId={CONTAINERS.services} />
+          <SingleCard containerId={CONTAINERS.services} overlaySubviews />
         </div>
       </div>
     </div>
@@ -203,10 +203,14 @@ function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
           )}
         </div>
 
-        {/* Right column: Single card container - dynamic height */}
+        {/* Right column: Single card container - dynamic height with overlay subviews */}
         <div className={styles.cardColumnDetail}>
           {service.containerId && (
-            <SingleCard containerId={service.containerId} className={styles.dynamicCard} />
+            <SingleCard
+              containerId={service.containerId}
+              className={styles.dynamicCard}
+              overlaySubviews
+            />
           )}
         </div>
       </div>

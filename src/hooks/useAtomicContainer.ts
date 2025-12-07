@@ -5,7 +5,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { atomicService } from '../services/atomicService';
 
-type ContainerType = 'horizontal' | 'vertical' | 'single' | 'banner';
+type ContainerType = 'horizontal' | 'vertical' | 'single' | 'banner' | 'embed';
 
 interface UseAtomicContainerOptions {
   type: ContainerType;
@@ -97,6 +97,13 @@ export function useAtomicContainer(options: UseAtomicContainerOptions) {
           break;
         case 'banner':
           unsubscribeRef.current = atomicService.createBannerContainer(
+            element,
+            containerId,
+            callbacks
+          );
+          break;
+        case 'embed':
+          unsubscribeRef.current = atomicService.createEmbedContainer(
             element,
             containerId,
             callbacks

@@ -175,6 +175,38 @@ class AtomicService {
   }
 
   /**
+   * Create an embedded container with overlay subviews
+   * Use this for containers where subviews should appear as overlays
+   * (Payees, Insurance, Services)
+   */
+  createEmbedContainer(
+    element: HTMLElement,
+    containerId: string,
+    options: {
+      onSizeChanged?: (width: number, height: number) => void;
+      onCardCountChanged?: (visible: number, total: number) => void;
+    } = {}
+  ): () => void {
+    const instance = AtomicSDK.embed(element, {
+      streamContainerId: containerId,
+      enabledUiElements: {
+        cardListHeader: false,
+        cardListToast: false,
+      },
+      onSizeChanged: options.onSizeChanged,
+      onCardCountChanged: options.onCardCountChanged,
+    });
+
+    const key = `embed-${containerId}`;
+    this.containerInstances.set(key, instance);
+
+    return () => {
+      this.cleanupInstance(instance);
+      this.containerInstances.delete(key);
+    };
+  }
+
+  /**
    * Create a banner container (horizontal with special styling)
    */
   createBannerContainer(
