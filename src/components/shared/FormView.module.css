@@ -33,6 +33,8 @@
 .cardColumn {
   flex: 1;
   max-width: 400px;
+  /* Align with top of first input field (account for title + margin + label + margin) */
+  margin-top: calc(var(--font-size-xl) + var(--spacing-lg) + var(--font-size-sm) + var(--spacing-sm));
 }
 
 .form {
@@ -161,6 +163,7 @@
 
   .cardColumn {
     order: -1; /* Card on top on mobile */
+    margin-top: 0;
     margin-bottom: var(--spacing-lg);
   }
 }

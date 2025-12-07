@@ -43,9 +43,9 @@ const navItems: NavItem[] = [
 export function Sidebar() {
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.logoSection}>
+      <NavLink to="/" className={styles.logoSection}>
         <DemoBankLogo />
-      </div>
+      </NavLink>
 
       <nav className={styles.nav}>
         {navItems.map((item) => (
@@ -62,20 +62,6 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      <div className={styles.footer}>
-        <div className={styles.poweredBy}>
-          Powered by
-          <a
-            href="https://atomic.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.atomicLink}
-          >
-            Atomic
-          </a>
-        </div>
-      </div>
     </aside>
   );
 }
