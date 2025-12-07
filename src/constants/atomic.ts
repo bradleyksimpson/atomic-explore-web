@@ -15,11 +15,11 @@ export const CONTAINERS = {
 
   // Home/Account page
   accountsHome: 'gp3EkNqm',
-  accountsFooter: 'Lqne7B5X',
+  accountsFooter: '25ARgPqM',
   rainyDay: 'xpVDrGq8',
 
   // Messages
-  secureMessages: '05oRA3p7',
+  secureMessages: '95DKPypz',
 
   // Transfers & Payments
   transfers: 'aqld31qP',
