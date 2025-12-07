@@ -28,7 +28,7 @@ export function HorizontalStream({
     <div
       className={`${styles.wrapper} ${className} ${isEmpty ? styles.empty : ''}`}
       style={{
-        minHeight: height > 0 ? height : 120, // Always have min height for SDK to render
+        minHeight: height > 0 ? height : 60, // Always have min height for SDK to render
       }}
     >
       <div ref={containerRef} className={styles.container} />

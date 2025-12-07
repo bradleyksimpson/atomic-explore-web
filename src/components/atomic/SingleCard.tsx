@@ -14,7 +14,7 @@ interface SingleCardProps {
   minHeight?: number;
 }
 
-export function SingleCard({ containerId, className = '', minHeight = 120 }: SingleCardProps) {
+export function SingleCard({ containerId, className = '', minHeight = 60 }: SingleCardProps) {
   const { containerRef, isEmpty, height } = useAtomicContainer({
     type: 'single',
     containerId,
