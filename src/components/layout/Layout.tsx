@@ -94,14 +94,23 @@ export function Layout() {
   // Initialize the bottom sheet container for alerts
   // This shows cards toasting up from bottom with 60% opacity background
   useEffect(() => {
+    console.log('Initializing bottom sheet container with ID:', CONTAINERS.accountsFooter);
+
     const instance = AtomicSDK.modalStreamContainer({
       streamContainerId: CONTAINERS.accountsFooter,
       cardMaximumWidth: 500,
       cardHorizontalAlignment: 'center',
       modalContainerPositioning: 'bottom',
       modalContainerVerticalPadding: 0,
+      onCardCountChanged: (visible, total) => {
+        console.log('Bottom sheet cards:', { visible, total, containerId: CONTAINERS.accountsFooter });
+      },
+      onModalStreamToggled: (isOpen) => {
+        console.log('Bottom sheet modal toggled:', isOpen);
+      },
     });
 
+    console.log('Bottom sheet instance created:', instance);
     bottomSheetRef.current = instance;
 
     return () => {
