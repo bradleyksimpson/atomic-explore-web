@@ -123,6 +123,8 @@ interface ServiceDetailViewProps {
 }
 
 function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
+  const isInsurance = service.id === 'insurance';
+
   return (
     <div className={styles.page}>
       {/* Blue header strip */}
@@ -130,7 +132,7 @@ function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
 
       {/* 2-column layout for detail view */}
       <div className={styles.content}>
-        {/* Left column: Back button and title */}
+        {/* Left column: Back button, title, and content */}
         <div className={styles.menuColumn}>
           <div className={styles.detailHeader}>
             <button className={styles.backButton} onClick={onBack}>
@@ -139,9 +141,40 @@ function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
             </button>
             <h1 className={styles.detailTitle}>{service.label}</h1>
           </div>
-          <p className={styles.detailDescription}>
-            View your {service.label.toLowerCase()} related messages and actions below.
-          </p>
+
+          {isInsurance ? (
+            <div className={styles.policiesList}>
+              {/* Home and contents policy */}
+              <div className={styles.policyCard}>
+                <div className={styles.policyIcon} style={{ backgroundColor: '#F06292' }}>
+                  <HomeInsuranceIcon />
+                </div>
+                <div className={styles.policyDetails}>
+                  <h3 className={styles.policyTitle}>Home and contents</h3>
+                  <p className={styles.policyInfo}>123 Main Street, Testville</p>
+                  <p className={styles.policyInfo}>City Town 1100</p>
+                  <p className={styles.policyExpiry}>Policy period ends Dec 2027</p>
+                </div>
+              </div>
+
+              {/* Full car cover policy */}
+              <div className={styles.policyCard}>
+                <div className={styles.policyIcon} style={{ backgroundColor: '#9CCC65' }}>
+                  <CarInsuranceIcon />
+                </div>
+                <div className={styles.policyDetails}>
+                  <h3 className={styles.policyTitle}>Full car cover</h3>
+                  <p className={styles.policyInfo}>2022 Ford Ranger</p>
+                  <p className={styles.policyInfo}>ABC1000</p>
+                  <p className={styles.policyExpiry}>Policy period ends May 2027</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <p className={styles.detailDescription}>
+              View your {service.label.toLowerCase()} related messages and actions below.
+            </p>
+          )}
         </div>
 
         {/* Right column: Single card container - dynamic height */}
@@ -152,6 +185,24 @@ function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+// Insurance policy icons
+function HomeInsuranceIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M12 3L4 9v12h16V9l-8-6zm0 2.236L18 10v9H6v-9l6-4.764zM12 11a2 2 0 100 4 2 2 0 000-4zm-1 2a1 1 0 112 0 1 1 0 01-2 0z" />
+      <path d="M11 15h2v3h-2z" />
+    </svg>
+  );
+}
+
+function CarInsuranceIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
+    </svg>
   );
 }
 
