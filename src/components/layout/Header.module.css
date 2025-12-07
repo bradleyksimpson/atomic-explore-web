@@ -18,6 +18,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  /* Move bell left so it's not obstructed by launcher popover */
+  margin-right: var(--spacing-xl);
 }
 
 .bellButton {
