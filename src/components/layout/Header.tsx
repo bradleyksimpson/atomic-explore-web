@@ -1,20 +1,12 @@
 /**
  * Header Component
- * Blue header bar with logo and notification bell
- * Matches iOS ADAccountMainView header
+ * Blue header bar with logo
+ * The notification bell is now handled by the Atomic SDK launcher
  */
 
-import { useCardCounts } from '../../hooks/useAtomicContainer';
 import styles from './Header.module.css';
 
-interface HeaderProps {
-  onMessagesClick?: () => void;
-}
-
-export function Header({ onMessagesClick }: HeaderProps) {
-  const { byContainer } = useCardCounts();
-  const messageCount = byContainer.secureMessages?.unseen ?? 0;
-
+export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -39,35 +31,9 @@ export function Header({ onMessagesClick }: HeaderProps) {
       </div>
 
       <div className={styles.actions}>
-        <button
-          className={styles.bellButton}
-          onClick={onMessagesClick}
-          aria-label={`Messages${messageCount > 0 ? ` (${messageCount} unread)` : ''}`}
-        >
-          <BellIcon />
-          {messageCount > 0 && (
-            <span className={styles.badge}>{messageCount > 9 ? '9+' : messageCount}</span>
-          )}
-        </button>
+        {/* The Atomic SDK launcher button appears in the bottom-right corner */}
+        {/* This space can be used for other header actions if needed */}
       </div>
     </header>
-  );
-}
-
-function BellIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-    </svg>
   );
 }

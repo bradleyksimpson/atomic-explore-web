@@ -3,16 +3,44 @@
  * Wraps the entire application with banner, header, sidebar, and content area
  */
 
+import { useEffect, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
+import AtomicSDK from '@atomic.io/action-cards-web-sdk';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { BannerContainer } from './BannerContainer';
-import { MessagesModal } from '../shared/MessagesModal';
-import { useState } from 'react';
+import { CONTAINERS } from '../../constants/atomic';
 import styles from './Layout.module.css';
 
 export function Layout() {
-  const [showMessages, setShowMessages] = useState(false);
+  const unsubscribeRef = useRef<unknown>(null);
+
+  // Initialize the Atomic launcher for messages
+  useEffect(() => {
+    // Launch the SDK's built-in launcher UI
+    const instance = AtomicSDK.launch({
+      streamContainerId: CONTAINERS.secureMessages,
+      customStrings: {
+        cardListTitle: 'Actions',
+      },
+      enabledUiElements: {
+        cardListHeader: true,
+        cardListToast: true,
+      },
+      onCardCountChanged: (visible, total) => {
+        // Update badge count if needed
+        console.log('Message cards:', visible, total);
+      },
+    });
+
+    unsubscribeRef.current = instance;
+
+    return () => {
+      if (unsubscribeRef.current && typeof unsubscribeRef.current === 'function') {
+        (unsubscribeRef.current as () => void)();
+      }
+    };
+  }, []);
 
   return (
     <div className={styles.layout}>
@@ -25,7 +53,7 @@ export function Layout() {
 
         <div className={styles.content}>
           {/* Header with logo and notifications */}
-          <Header onMessagesClick={() => setShowMessages(true)} />
+          <Header />
 
           {/* Main content area */}
           <main className={styles.page}>
@@ -34,10 +62,7 @@ export function Layout() {
         </div>
       </div>
 
-      {/* Messages modal */}
-      {showMessages && (
-        <MessagesModal onClose={() => setShowMessages(false)} />
-      )}
+      {/* The Atomic launcher renders itself in the bottom-right corner */}
     </div>
   );
 }

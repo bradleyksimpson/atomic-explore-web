@@ -139,6 +139,24 @@ input, textarea, select {
   z-index: 1000;
 }
 
+/* Atomic SDK Launcher styling */
+.atomic-sdk-launcher-wrapper {
+  z-index: 1000 !important;
+}
+
+.atomic-sdk-launcher {
+  /* Position in bottom-right */
+  bottom: 24px !important;
+  right: 24px !important;
+}
+
+/* Mobile: account for bottom nav */
+@media (max-width: 768px) {
+  .atomic-sdk-launcher {
+    bottom: 100px !important;
+  }
+}
+
 /* Page transition */
 .page-enter {
   opacity: 0;
