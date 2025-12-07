@@ -12,20 +12,26 @@ import { BannerContainer } from './BannerContainer';
 import { CONTAINERS } from '../../constants/atomic';
 import styles from './Layout.module.css';
 
+// Type for the launcher instance
+interface LauncherInstance {
+  setOpen: (open: boolean) => void;
+  stop: () => void;
+}
+
 export function Layout() {
-  const launcherRef = useRef<unknown>(null);
+  const launcherRef = useRef<LauncherInstance | null>(null);
   const modalRef = useRef<unknown>(null);
   const [cardCount, setCardCount] = useState(0);
+  const [isLauncherOpen, setIsLauncherOpen] = useState(false);
 
-  // Handle bell click - toggle the launcher
+  // Handle bell click - toggle the launcher open/closed
   const handleBellClick = useCallback(() => {
-    if (launcherRef.current && typeof launcherRef.current === 'object') {
-      const launcher = launcherRef.current as { toggle?: () => void };
-      if (launcher.toggle) {
-        launcher.toggle();
-      }
+    if (launcherRef.current) {
+      const newState = !isLauncherOpen;
+      launcherRef.current.setOpen(newState);
+      setIsLauncherOpen(newState);
     }
-  }, []);
+  }, [isLauncherOpen]);
 
   // Initialize the Atomic launcher for messages (Actions popover)
   useEffect(() => {
@@ -37,18 +43,25 @@ export function Layout() {
       enabledUiElements: {
         cardListHeader: true,
         cardListToast: true,
+        // Hide the default launcher button - we use our own bell icon
+        launcherButton: {
+          disabled: true,
+        },
       },
       onCardCountChanged: (visible, total) => {
         console.log('Message cards:', visible, total);
         setCardCount(total);
       },
+      onLauncherToggled: (isOpen?: boolean) => {
+        setIsLauncherOpen(isOpen ?? false);
+      },
     });
 
-    launcherRef.current = instance;
+    launcherRef.current = instance as LauncherInstance;
 
     return () => {
-      if (launcherRef.current && typeof launcherRef.current === 'function') {
-        (launcherRef.current as () => void)();
+      if (launcherRef.current) {
+        launcherRef.current.stop();
       }
     };
   }, []);
@@ -97,7 +110,7 @@ export function Layout() {
         </div>
       </div>
 
-      {/* The Atomic launcher renders itself when triggered */}
+      {/* The Atomic launcher renders its popover when setOpen(true) is called */}
       {/* The modal container renders itself when cards are present */}
     </div>
   );

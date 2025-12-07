@@ -1,4 +1,4 @@
-/* Services Page Styles */
+/* Services Page Styles - 2-column layout */
 
 .page {
   display: flex;
@@ -6,17 +6,44 @@
   min-height: 100%;
 }
 
-.heroSection {
-  padding: var(--spacing-md);
+/* Blue header strip for visual continuity */
+.headerStrip {
+  height: 20px;
   background-color: var(--color-brand-blue);
 }
 
-.contentSection {
+/* 2-column content area */
+.content {
+  display: flex;
   flex: 1;
+  gap: var(--spacing-xl);
   padding: var(--spacing-lg);
   background-color: var(--color-background);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  margin-top: -var(--radius-lg);
+  margin-top: calc(-1 * var(--radius-lg));
+}
+
+/* Left column: Services menu */
+.menuColumn {
+  flex: 1;
+  max-width: 400px;
+}
+
+/* Right column: Atomic container */
+.cardColumn {
+  flex: 1;
+  max-width: 400px;
+}
+
+/* Right column for detail view - allow more height */
+.cardColumnDetail {
+  flex: 1;
+  min-height: 400px;
+}
+
+/* Dynamic card that grows with content */
+.dynamicCard {
+  min-height: 300px;
 }
 
 .sectionTitle {
@@ -29,7 +56,7 @@
 .servicesList {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .serviceItem {
@@ -40,26 +67,24 @@
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-md);
-  width: 100%;
-  text-align: left;
   transition: all var(--transition-fast);
+  text-align: left;
 }
 
 .serviceItem:hover {
   background-color: var(--color-background);
-  border-color: var(--color-chevron);
+  border-color: var(--color-brand-blue);
 }
 
 .serviceIcon {
-  width: 40px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-brand-blue);
-  color: white;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-md);
-  flex-shrink: 0;
+  background-color: var(--color-background);
+  color: var(--color-text-secondary);
 }
 
 .serviceLabel {
@@ -70,70 +95,76 @@
 }
 
 .badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
-  line-height: 20px;
-  text-align: center;
   color: white;
-  background-color: var(--color-alert);
+  background-color: var(--color-brand-blue);
   border-radius: 10px;
 }
 
 .chevron {
-  color: var(--color-chevron);
-  flex-shrink: 0;
-}
-
-/* Detail page */
-.detailPage {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  background-color: var(--color-background);
-}
-
-.detailHeader {
   display: flex;
   align-items: center;
+  color: var(--color-text-secondary);
+}
+
+/* Detail view styles */
+.detailHeader {
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--color-brand-blue);
-  color: white;
+  margin-bottom: var(--spacing-lg);
 }
 
 .backButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm) 0;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  transition: background-color var(--transition-fast);
+  color: var(--color-brand-blue);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
 }
 
 .detailTitle {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
 }
 
-.detailContent {
-  flex: 1;
-  padding: var(--spacing-lg);
+.detailDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-  .contentSection {
-    max-width: 600px;
+/* Responsive - stack on mobile */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .menuColumn,
+  .cardColumn,
+  .cardColumnDetail {
+    max-width: 100%;
+  }
+
+  .cardColumn {
+    order: -1;
+    margin-bottom: var(--spacing-lg);
   }
 }

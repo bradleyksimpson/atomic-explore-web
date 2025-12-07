@@ -12,26 +12,14 @@
 .logoSection {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--color-card-border);
 }
 
-.logoIcon {
-  flex-shrink: 0;
-}
-
-.logoText {
-  font-size: var(--font-size-lg);
+.logo {
+  height: 22px;
+  width: auto;
   color: var(--color-text-primary);
-}
-
-.logoLight {
-  font-weight: var(--font-weight-normal);
-}
-
-.logoBold {
-  font-weight: var(--font-weight-bold);
 }
 
 .nav {

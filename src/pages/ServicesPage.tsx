@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { HorizontalStream } from '../components/atomic/HorizontalStream';
+import { SingleCard } from '../components/atomic/SingleCard';
 import { useCardCounts } from '../hooks/useAtomicContainer';
 import { CONTAINERS } from '../constants/atomic';
 import styles from './ServicesPage.module.css';
@@ -74,37 +74,43 @@ export function ServicesPage() {
 
   return (
     <div className={styles.page}>
-      {/* Services header with Atomic container */}
-      <div className={styles.heroSection}>
-        <HorizontalStream containerId={CONTAINERS.services} cardWidth={340} />
-      </div>
+      {/* Blue header strip for visual continuity */}
+      <div className={styles.headerStrip} />
 
-      {/* Services menu */}
-      <div className={styles.contentSection}>
-        <h2 className={styles.sectionTitle}>Services</h2>
-        <div className={styles.servicesList}>
-          {serviceItems.map((service) => {
-            const badgeCount = service.badge && service.containerId
-              ? byContainer[service.id]?.unseen ?? 0
-              : 0;
+      {/* 2-column layout */}
+      <div className={styles.content}>
+        {/* Left column: Services menu */}
+        <div className={styles.menuColumn}>
+          <h2 className={styles.sectionTitle}>Services</h2>
+          <div className={styles.servicesList}>
+            {serviceItems.map((service) => {
+              const badgeCount = service.badge && service.containerId
+                ? byContainer[service.id]?.unseen ?? 0
+                : 0;
 
-            return (
-              <button
-                key={service.id}
-                className={styles.serviceItem}
-                onClick={() => handleServiceClick(service)}
-              >
-                <span className={styles.serviceIcon}>{service.icon}</span>
-                <span className={styles.serviceLabel}>{service.label}</span>
-                {badgeCount > 0 && (
-                  <span className={styles.badge}>{badgeCount}</span>
-                )}
-                <span className={styles.chevron}>
-                  <ChevronIcon />
-                </span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={service.id}
+                  className={styles.serviceItem}
+                  onClick={() => handleServiceClick(service)}
+                >
+                  <span className={styles.serviceIcon}>{service.icon}</span>
+                  <span className={styles.serviceLabel}>{service.label}</span>
+                  {badgeCount > 0 && (
+                    <span className={styles.badge}>{badgeCount}</span>
+                  )}
+                  <span className={styles.chevron}>
+                    <ChevronIcon />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right column: Services Atomic container */}
+        <div className={styles.cardColumn}>
+          <SingleCard containerId={CONTAINERS.services} />
         </div>
       </div>
     </div>
@@ -118,22 +124,32 @@ interface ServiceDetailViewProps {
 
 function ServiceDetailView({ service, onBack }: ServiceDetailViewProps) {
   return (
-    <div className={styles.detailPage}>
-      <div className={styles.detailHeader}>
-        <button className={styles.backButton} onClick={onBack}>
-          <BackIcon />
-          <span>Back</span>
-        </button>
-        <h1 className={styles.detailTitle}>{service.label}</h1>
-      </div>
+    <div className={styles.page}>
+      {/* Blue header strip */}
+      <div className={styles.headerStrip} />
 
-      <div className={styles.detailContent}>
-        {service.containerId && (
-          <HorizontalStream
-            containerId={service.containerId}
-            cardWidth={370}
-          />
-        )}
+      {/* 2-column layout for detail view */}
+      <div className={styles.content}>
+        {/* Left column: Back button and title */}
+        <div className={styles.menuColumn}>
+          <div className={styles.detailHeader}>
+            <button className={styles.backButton} onClick={onBack}>
+              <BackIcon />
+              <span>Back</span>
+            </button>
+            <h1 className={styles.detailTitle}>{service.label}</h1>
+          </div>
+          <p className={styles.detailDescription}>
+            View your {service.label.toLowerCase()} related messages and actions below.
+          </p>
+        </div>
+
+        {/* Right column: Single card container - dynamic height */}
+        <div className={styles.cardColumnDetail}>
+          {service.containerId && (
+            <SingleCard containerId={service.containerId} className={styles.dynamicCard} />
+          )}
+        </div>
       </div>
     </div>
   );
