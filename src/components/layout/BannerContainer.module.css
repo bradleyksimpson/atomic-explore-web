@@ -1,0 +1,22 @@
+/* Banner Container Styles */
+
+.banner {
+  width: 100%;
+  background-color: var(--color-brand-blue);
+  transition: min-height var(--transition-normal);
+}
+
+.bannerEmpty {
+  min-height: 0 !important;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Atomic SDK frame styling */
+.container :global(.atomic-sdk-frame) {
+  width: 100%;
+  border: none;
+}

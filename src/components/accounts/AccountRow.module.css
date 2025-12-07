@@ -1,0 +1,82 @@
+/* Account Row Styles */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  width: 100%;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-card-border);
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.row:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-chevron);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 2px;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+}
+
+.thumbnailIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.number {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.balanceWrapper {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.balance {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.positive {
+  color: var(--color-text-primary);
+}
+
+.negative {
+  color: var(--color-money-out);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--color-chevron);
+}

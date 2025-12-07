@@ -1,0 +1,107 @@
+/* Design Tokens - Extracted from iOS AtomicDemo app */
+/* Supports light and dark mode */
+
+:root {
+  /* Primary Brand Colors */
+  --color-brand-blue: #1F3CFF;
+  --color-ad-blue: #1E6EFA;
+  --color-ad-navy: #001414;
+
+  /* Semantic Colors - Light Mode */
+  --color-background: #F2F2F2;
+  --color-surface: #FEFFFE;
+  --color-surface-elevated: #FFFFFF;
+  --color-text-primary: #000000;
+  --color-text-secondary: #9296A0;
+  --color-accent: #1F3CFF;
+  --color-chevron: #1F3CFF;
+
+  /* Status Colors */
+  --color-money-in: #50C099;
+  --color-money-out: #FFC565;
+  --color-alert: #FF3C5A;
+
+  /* Component-specific */
+  --color-header-bg: #1F3CFF;
+  --color-header-text: #FFFFFF;
+  --color-sidebar-bg: #FFFFFF;
+  --color-card-bg: #FEFFFE;
+  --color-card-border: rgba(0, 0, 0, 0.08);
+  --color-tab-bg: #F2F2F2;
+  --color-bottom-sheet: #FFFFFF;
+  --color-bell-icon: #1F3CFF;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 14px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --radius-xl: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Layout */
+  --sidebar-width: 240px;
+  --header-height: 64px;
+  --banner-height: auto;
+  --card-width: 370px;
+  --card-width-small: 340px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #000000;
+    --color-surface: #20252D;
+    --color-surface-elevated: #20252D;
+    --color-text-primary: #FEFFFE;
+    --color-text-secondary: #FEFFFE;
+    --color-chevron: #7793F8;
+
+    --color-header-bg: #1F3CFF;
+    --color-header-text: #FFFFFF;
+    --color-sidebar-bg: #20252D;
+    --color-card-bg: #20252D;
+    --color-card-border: rgba(255, 255, 255, 0.1);
+    --color-tab-bg: #000000;
+    --color-bottom-sheet: #20252D;
+    --color-bell-icon: #FEFFFE;
+
+    --color-money-out: #FEFFFE;
+  }
+}
+
+/* Manual dark mode class override */
+.dark {
+  --color-background: #000000;
+  --color-surface: #20252D;
+  --color-surface-elevated: #20252D;
+  --color-text-primary: #FEFFFE;
+  --color-text-secondary: #FEFFFE;
+  --color-chevron: #7793F8;
+
+  --color-header-bg: #1F3CFF;
+  --color-header-text: #FFFFFF;
+  --color-sidebar-bg: #20252D;
+  --color-card-bg: #20252D;
+  --color-card-border: rgba(255, 255, 255, 0.1);
+  --color-tab-bg: #000000;
+  --color-bottom-sheet: #20252D;
+  --color-bell-icon: #FEFFFE;
+
+  --color-money-out: #FEFFFE;
+}

@@ -1,0 +1,37 @@
+/* Main Layout Styles */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; /* Prevent flex item from overflowing */
+}
+
+.page {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--color-background);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .page {
+    /* Account for bottom nav */
+    padding-bottom: 80px;
+  }
+}

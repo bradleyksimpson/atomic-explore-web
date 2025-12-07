@@ -1,0 +1,141 @@
+/* Sidebar Component Styles */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: var(--color-sidebar-bg);
+  border-right: 1px solid var(--color-card-border);
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.logoIcon {
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+  gap: var(--spacing-xs);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.navItem:hover {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+.navItemActive {
+  background-color: var(--color-brand-blue);
+  color: white !important;
+}
+
+.navItemActive:hover {
+  background-color: var(--color-brand-blue);
+  opacity: 0.9;
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.navLabel {
+  flex: 1;
+}
+
+.footer {
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--color-card-border);
+}
+
+.poweredBy {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.atomicLink {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-blue);
+}
+
+/* Mobile responsive - convert to bottom nav */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    border-right: none;
+    border-top: 1px solid var(--color-card-border);
+    z-index: 100;
+  }
+
+  .logoSection,
+  .footer {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: var(--spacing-sm);
+    gap: 0;
+  }
+
+  .navItem {
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--spacing-sm);
+  }
+
+  .navLabel {
+    font-size: var(--font-size-xs);
+  }
+
+  .navItemActive {
+    background-color: transparent;
+    color: var(--color-brand-blue) !important;
+  }
+
+  .navItemActive:hover {
+    background-color: transparent;
+  }
+}

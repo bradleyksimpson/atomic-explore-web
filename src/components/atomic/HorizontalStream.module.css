@@ -1,0 +1,20 @@
+/* Horizontal Stream Styles */
+
+.wrapper {
+  width: 100%;
+  transition: min-height var(--transition-normal);
+}
+
+.empty {
+  min-height: 0 !important;
+}
+
+.container {
+  width: 100%;
+}
+
+/* Atomic SDK frame styling */
+.container :global(.atomic-sdk-frame) {
+  width: 100%;
+  border: none;
+}

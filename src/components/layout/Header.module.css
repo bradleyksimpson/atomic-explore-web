@@ -1,0 +1,65 @@
+/* Header Component Styles */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--spacing-lg);
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo svg {
+  height: 25px;
+  width: auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.bellButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-header-text);
+  transition: background-color var(--transition-fast);
+}
+
+.bellButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bellButton:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  line-height: 18px;
+  text-align: center;
+  color: white;
+  background-color: var(--color-alert);
+  border-radius: 9px;
+}

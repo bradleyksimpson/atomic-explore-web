@@ -1,0 +1,252 @@
+/* Settings Page Styles */
+
+.page {
+  min-height: 100%;
+  background-color: var(--color-background);
+  padding: var(--spacing-lg);
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.section {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.field {
+  margin-bottom: var(--spacing-md);
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-brand-blue);
+}
+
+.inputGroup {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.inputGroup .input {
+  flex: 1;
+}
+
+.editGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.editActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.valueGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.idValue {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-family: monospace;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  word-break: break-all;
+}
+
+.hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* Buttons */
+.saveButton,
+.editButton,
+.secondaryButton,
+.cancelButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.saveButton {
+  color: white;
+  background-color: var(--color-brand-blue);
+}
+
+.saveButton:hover {
+  opacity: 0.9;
+}
+
+.editButton,
+.secondaryButton {
+  color: var(--color-brand-blue);
+  background-color: transparent;
+  border: 1px solid var(--color-brand-blue);
+}
+
+.editButton:hover,
+.secondaryButton:hover {
+  background-color: var(--color-brand-blue);
+  color: white;
+}
+
+.cancelButton {
+  color: var(--color-text-secondary);
+  background-color: transparent;
+}
+
+.cancelButton:hover {
+  color: var(--color-text-primary);
+}
+
+/* Toggle */
+.toggleField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggleLabel {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.toggleHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.toggle {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  background-color: var(--color-text-secondary);
+  border-radius: 14px;
+  transition: background-color var(--transition-fast);
+}
+
+.toggle.toggleOn {
+  background-color: var(--color-brand-blue);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle.toggleOn .toggleThumb {
+  transform: translateX(22px);
+}
+
+/* Danger Button */
+.dangerButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-alert);
+  background-color: transparent;
+  border: 1px solid var(--color-alert);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.dangerButton:hover {
+  background-color: var(--color-alert);
+  color: white;
+}
+
+/* About */
+.aboutInfo {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.aboutInfo p {
+  margin-bottom: var(--spacing-xs);
+}
+
+.version {
+  color: var(--color-text-secondary);
+}
+
+.powered {
+  margin-top: var(--spacing-md) !important;
+}
+
+.powered a {
+  color: var(--color-brand-blue);
+  font-weight: var(--font-weight-semibold);
+}
