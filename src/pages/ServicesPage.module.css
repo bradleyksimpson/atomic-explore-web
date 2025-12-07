@@ -39,12 +39,11 @@
 .cardColumnDetail {
   flex: 1;
   min-height: 400px;
-  /* Align with first list item: back button + title + description + margins */
+  /* Align with first list item: back button (with padding) + gap + title + header margin */
   margin-top: calc(
-    var(--spacing-sm) + (var(--font-size-md) * 1.5) +
+    var(--spacing-sm) + (var(--font-size-md) * 1.5) + var(--spacing-sm) +
     var(--spacing-md) + (var(--font-size-xl) * 1.5) +
-    var(--spacing-lg) + (var(--font-size-md) * 1.5) +
-    var(--spacing-lg)
+    var(--spacing-lg) + 4px
   );
 }
 
