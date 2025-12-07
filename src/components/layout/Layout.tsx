@@ -13,11 +13,11 @@ import { CONTAINERS } from '../../constants/atomic';
 import styles from './Layout.module.css';
 
 export function Layout() {
-  const unsubscribeRef = useRef<unknown>(null);
+  const launcherRef = useRef<unknown>(null);
+  const modalRef = useRef<unknown>(null);
 
-  // Initialize the Atomic launcher for messages
+  // Initialize the Atomic launcher for messages (Actions popover)
   useEffect(() => {
-    // Launch the SDK's built-in launcher UI
     const instance = AtomicSDK.launch({
       streamContainerId: CONTAINERS.secureMessages,
       customStrings: {
@@ -28,16 +28,39 @@ export function Layout() {
         cardListToast: true,
       },
       onCardCountChanged: (visible, total) => {
-        // Update badge count if needed
         console.log('Message cards:', visible, total);
       },
     });
 
-    unsubscribeRef.current = instance;
+    launcherRef.current = instance;
 
     return () => {
-      if (unsubscribeRef.current && typeof unsubscribeRef.current === 'function') {
-        (unsubscribeRef.current as () => void)();
+      if (launcherRef.current && typeof launcherRef.current === 'function') {
+        (launcherRef.current as () => void)();
+      }
+    };
+  }, []);
+
+  // Initialize the overlay/modal container
+  // This shows cards as full-screen takeover with 50% opacity background
+  useEffect(() => {
+    const instance = AtomicSDK.modalStreamContainer({
+      streamContainerId: CONTAINERS.overlay,
+      cardMaximumWidth: 400,
+      cardHorizontalAlignment: 'center',
+      modalContainerPositioning: 'center',
+      modalContainerVerticalPadding: 50,
+    });
+
+    modalRef.current = instance;
+
+    return () => {
+      if (modalRef.current) {
+        // Modal container cleanup
+        const modal = modalRef.current as { stop?: () => void };
+        if (modal.stop) {
+          modal.stop();
+        }
       }
     };
   }, []);
@@ -52,7 +75,7 @@ export function Layout() {
         <Sidebar />
 
         <div className={styles.content}>
-          {/* Header with logo and notifications */}
+          {/* Header with logo */}
           <Header />
 
           {/* Main content area */}
@@ -63,6 +86,7 @@ export function Layout() {
       </div>
 
       {/* The Atomic launcher renders itself in the bottom-right corner */}
+      {/* The modal container renders itself when cards are present */}
     </div>
   );
 }

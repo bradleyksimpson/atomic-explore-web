@@ -24,15 +24,12 @@ export function HorizontalStream({
     cardWidth,
   });
 
-  // If empty and has no height, collapse
-  if (isEmpty && height === 0) {
-    return null;
-  }
-
   return (
     <div
       className={`${styles.wrapper} ${className} ${isEmpty ? styles.empty : ''}`}
-      style={{ minHeight: height > 0 ? height : undefined }}
+      style={{
+        minHeight: height > 0 ? height : 120, // Always have min height for SDK to render
+      }}
     >
       <div ref={containerRef} className={styles.container} />
     </div>

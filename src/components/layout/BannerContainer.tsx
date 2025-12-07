@@ -14,15 +14,10 @@ export function BannerContainer() {
     containerId: CONTAINERS.banner,
   });
 
-  // Don't render anything if no cards
-  if (isEmpty && height === 0) {
-    return null;
-  }
-
   return (
     <div
       className={`${styles.banner} ${isEmpty ? styles.bannerEmpty : ''}`}
-      style={{ minHeight: height > 0 ? height : undefined }}
+      style={{ minHeight: height > 0 ? height : (isEmpty ? 0 : 80) }}
     >
       <div ref={containerRef} className={styles.container} />
     </div>

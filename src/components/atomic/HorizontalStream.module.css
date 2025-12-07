@@ -5,12 +5,15 @@
   transition: min-height var(--transition-normal);
 }
 
-.empty {
-  min-height: 0 !important;
-}
-
 .container {
   width: 100%;
+  min-height: inherit;
+}
+
+/* When empty, collapse after SDK has confirmed no cards */
+.empty {
+  min-height: 0 !important;
+  overflow: hidden;
 }
 
 /* Atomic SDK frame styling */
