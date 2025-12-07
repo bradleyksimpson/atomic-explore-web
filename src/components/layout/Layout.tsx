@@ -21,6 +21,7 @@ interface LauncherInstance {
 export function Layout() {
   const launcherRef = useRef<LauncherInstance | null>(null);
   const modalRef = useRef<unknown>(null);
+  const bottomSheetRef = useRef<unknown>(null);
   const [cardCount, setCardCount] = useState(0);
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
 
@@ -85,6 +86,29 @@ export function Layout() {
         const modal = modalRef.current as { stop?: () => void };
         if (modal.stop) {
           modal.stop();
+        }
+      }
+    };
+  }, []);
+
+  // Initialize the bottom sheet container for alerts
+  // This shows cards toasting up from bottom with 60% opacity background
+  useEffect(() => {
+    const instance = AtomicSDK.modalStreamContainer({
+      streamContainerId: CONTAINERS.accountsFooter,
+      cardMaximumWidth: 500,
+      cardHorizontalAlignment: 'center',
+      modalContainerPositioning: 'bottom',
+      modalContainerVerticalPadding: 0,
+    });
+
+    bottomSheetRef.current = instance;
+
+    return () => {
+      if (bottomSheetRef.current) {
+        const sheet = bottomSheetRef.current as { stop?: () => void };
+        if (sheet.stop) {
+          sheet.stop();
         }
       }
     };

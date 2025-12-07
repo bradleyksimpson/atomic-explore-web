@@ -157,6 +157,16 @@ input, textarea, select {
   right: 24px !important;
 }
 
+/* Position the launcher card list (Actions popover) more to the right */
+/* This prevents it from covering the bell icon */
+[class*="card-list-container"],
+[class*="cardListContainer"],
+[class*="launcher-card-list"],
+[class*="launcherCardList"] {
+  right: 80px !important;
+  left: auto !important;
+}
+
 /* Mobile: account for bottom nav */
 @media (max-width: 768px) {
   .atomic-sdk-launcher {

@@ -4,8 +4,6 @@
  */
 
 import { NavLink } from 'react-router-dom';
-import { SingleCard } from '../atomic/SingleCard';
-import { CONTAINERS } from '../../constants/atomic';
 import styles from './Sidebar.module.css';
 
 interface NavItem {
@@ -64,11 +62,6 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      {/* BottomSheetAlert container */}
-      <div className={styles.alertContainer}>
-        <SingleCard containerId={CONTAINERS.accountsFooter} minHeight={0} />
-      </div>
     </aside>
   );
 }
