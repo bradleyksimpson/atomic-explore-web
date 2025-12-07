@@ -1,4 +1,4 @@
-/* Form View Styles */
+/* Form View Styles - 2-column layout */
 
 .container {
   display: flex;
@@ -6,17 +6,37 @@
   min-height: 100%;
 }
 
-.atomicSection {
-  padding: var(--spacing-md);
+/* Small blue header strip for visual continuity */
+.headerStrip {
+  height: 20px;
   background-color: var(--color-brand-blue);
 }
 
-.form {
+/* 2-column content area */
+.content {
+  display: flex;
   flex: 1;
+  gap: var(--spacing-xl);
   padding: var(--spacing-lg);
   background-color: var(--color-background);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  margin-top: -var(--radius-lg);
+  margin-top: calc(-1 * var(--radius-lg));
+}
+
+/* Left column: Form */
+.formColumn {
+  flex: 1;
+  max-width: 500px;
+}
+
+/* Right column: Single card */
+.cardColumn {
+  flex: 1;
+  max-width: 400px;
+}
+
+.form {
+  width: 100%;
 }
 
 .title {
@@ -128,11 +148,19 @@
   cursor: not-allowed;
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-  .form {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+/* Responsive - stack on mobile */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .formColumn,
+  .cardColumn {
+    max-width: 100%;
+  }
+
+  .cardColumn {
+    order: -1; /* Card on top on mobile */
+    margin-bottom: var(--spacing-lg);
   }
 }

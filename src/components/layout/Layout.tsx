@@ -3,7 +3,7 @@
  * Wraps the entire application with banner, header, sidebar, and content area
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import AtomicSDK from '@atomic.io/action-cards-web-sdk';
 import { Header } from './Header';
@@ -15,6 +15,17 @@ import styles from './Layout.module.css';
 export function Layout() {
   const launcherRef = useRef<unknown>(null);
   const modalRef = useRef<unknown>(null);
+  const [cardCount, setCardCount] = useState(0);
+
+  // Handle bell click - toggle the launcher
+  const handleBellClick = useCallback(() => {
+    if (launcherRef.current && typeof launcherRef.current === 'object') {
+      const launcher = launcherRef.current as { toggle?: () => void };
+      if (launcher.toggle) {
+        launcher.toggle();
+      }
+    }
+  }, []);
 
   // Initialize the Atomic launcher for messages (Actions popover)
   useEffect(() => {
@@ -29,6 +40,7 @@ export function Layout() {
       },
       onCardCountChanged: (visible, total) => {
         console.log('Message cards:', visible, total);
+        setCardCount(total);
       },
     });
 
@@ -75,8 +87,8 @@ export function Layout() {
         <Sidebar />
 
         <div className={styles.content}>
-          {/* Header with logo */}
-          <Header />
+          {/* Header with bell icon */}
+          <Header onBellClick={handleBellClick} badgeCount={cardCount} />
 
           {/* Main content area */}
           <main className={styles.page}>
@@ -85,7 +97,7 @@ export function Layout() {
         </div>
       </div>
 
-      {/* The Atomic launcher renders itself in the bottom-right corner */}
+      {/* The Atomic launcher renders itself when triggered */}
       {/* The modal container renders itself when cards are present */}
     </div>
   );

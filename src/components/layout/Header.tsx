@@ -1,39 +1,45 @@
 /**
  * Header Component
- * Blue header bar with logo
- * The notification bell is now handled by the Atomic SDK launcher
+ * Blue header bar - minimal, clean design
+ * The notification bell triggers the Atomic SDK launcher
  */
 
 import styles from './Header.module.css';
 
-export function Header() {
+interface HeaderProps {
+  onBellClick?: () => void;
+  badgeCount?: number;
+}
+
+export function Header({ onBellClick, badgeCount = 0 }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <svg
-          width="140"
-          height="25"
-          viewBox="0 0 140 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <text
-            x="0"
-            y="20"
-            fill="white"
-            fontFamily="Figtree, sans-serif"
-            fontWeight="700"
-            fontSize="20"
-          >
-            Demo Bank
-          </text>
-        </svg>
-      </div>
+      {/* Empty left side for balance */}
+      <div className={styles.spacer} />
 
+      {/* Bell icon on the right - triggers the Actions launcher */}
       <div className={styles.actions}>
-        {/* The Atomic SDK launcher button appears in the bottom-right corner */}
-        {/* This space can be used for other header actions if needed */}
+        <button
+          className={styles.bellButton}
+          onClick={onBellClick}
+          aria-label="Actions"
+          id="header-bell-button"
+        >
+          <BellIcon />
+          {badgeCount > 0 && (
+            <span className={styles.badge}>{badgeCount > 9 ? '9+' : badgeCount}</span>
+          )}
+        </button>
       </div>
     </header>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </svg>
   );
 }

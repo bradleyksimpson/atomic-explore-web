@@ -4,6 +4,7 @@
  */
 
 import { NavLink } from 'react-router-dom';
+import demoLogo from '../../assets/demo-logo.svg';
 import styles from './Sidebar.module.css';
 
 interface NavItem {
@@ -45,22 +46,12 @@ export function Sidebar() {
     <aside className={styles.sidebar}>
       <div className={styles.logoSection}>
         <div className={styles.logoIcon}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect width="32" height="32" rx="8" fill="var(--color-brand-blue)" />
-            <text
-              x="16"
-              y="22"
-              fill="white"
-              fontFamily="Figtree"
-              fontWeight="700"
-              fontSize="18"
-              textAnchor="middle"
-            >
-              D
-            </text>
-          </svg>
+          <img src={demoLogo} alt="Demo Bank" width="32" height="32" />
         </div>
-        <span className={styles.logoText}>Demo Bank</span>
+        <span className={styles.logoText}>
+          <span className={styles.logoLight}>demo</span>
+          <span className={styles.logoBold}>Bank</span>
+        </span>
       </div>
 
       <nav className={styles.nav}>

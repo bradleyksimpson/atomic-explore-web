@@ -10,14 +10,8 @@
   color: var(--color-header-text);
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo svg {
-  height: 25px;
-  width: auto;
+.spacer {
+  flex: 1;
 }
 
 .actions {

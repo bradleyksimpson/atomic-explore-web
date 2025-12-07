@@ -1,15 +1,15 @@
 /**
  * Account Page
- * Main account overview with horizontal Atomic containers and account list
+ * Main account overview with single card Atomic container and account list
  * Matches iOS ADAccountMainView
  */
 
 import { useState } from 'react';
-import { HorizontalStream } from '../components/atomic/HorizontalStream';
+import { SingleCard } from '../components/atomic/SingleCard';
 import { AccountList, demoAccounts } from '../components/accounts/AccountList';
 import type { Account } from '../components/accounts/AccountRow';
 import { AccountDetail } from '../components/accounts/AccountDetail';
-import { CONTAINERS, LAYOUT } from '../constants/atomic';
+import { CONTAINERS } from '../constants/atomic';
 import styles from './AccountPage.module.css';
 
 export function AccountPage() {
@@ -25,16 +25,17 @@ export function AccountPage() {
 
   return (
     <div className={styles.page}>
-      {/* Hero cards from Atomic */}
-      <div className={styles.heroSection}>
-        <HorizontalStream
-          containerId={CONTAINERS.accountsHome}
-          cardWidth={LAYOUT.cardWidth}
-        />
-      </div>
+      {/* Blue header section - just for visual continuity */}
+      <div className={styles.headerSection} />
 
-      {/* Accounts section */}
+      {/* Content area with white background */}
       <div className={styles.contentSection}>
+        {/* Single card Atomic container - above Accounts title */}
+        <div className={styles.cardSection}>
+          <SingleCard containerId={CONTAINERS.accountsHome} />
+        </div>
+
+        {/* Accounts section */}
         <h2 className={styles.sectionTitle}>Accounts</h2>
         <AccountList
           accounts={demoAccounts}
@@ -43,10 +44,7 @@ export function AccountPage() {
 
         {/* Rainy Day savings specific container */}
         <div className={styles.savingsSection}>
-          <HorizontalStream
-            containerId={CONTAINERS.rainyDay}
-            cardWidth={LAYOUT.cardWidth}
-          />
+          <SingleCard containerId={CONTAINERS.rainyDay} />
         </div>
       </div>
 

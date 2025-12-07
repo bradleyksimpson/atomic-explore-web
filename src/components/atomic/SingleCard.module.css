@@ -1,0 +1,23 @@
+/* Single Card Styles */
+
+.wrapper {
+  width: 100%;
+  transition: min-height var(--transition-normal);
+}
+
+.container {
+  width: 100%;
+  min-height: inherit;
+}
+
+/* When empty, collapse */
+.empty {
+  min-height: 0 !important;
+  overflow: hidden;
+}
+
+/* Atomic SDK frame styling */
+.container :global(.atomic-sdk-frame) {
+  width: 100%;
+  border: none;
+}

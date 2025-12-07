@@ -1,11 +1,12 @@
 /**
  * Form View Component
  * Reusable form for transfers and payments
+ * 2-column layout: form on left, single card container on right
  * Matches iOS ADFormView
  */
 
 import { useState } from 'react';
-import { HorizontalStream } from '../atomic/HorizontalStream';
+import { SingleCard } from '../atomic/SingleCard';
 import styles from './FormView.module.css';
 
 interface FormViewProps {
@@ -68,83 +69,91 @@ export function FormView({
 
   return (
     <div className={styles.container}>
-      {/* Atomic container for contextual cards */}
-      <div className={styles.atomicSection}>
-        <HorizontalStream containerId={containerId} cardWidth={340} />
+      {/* Small blue header strip for visual continuity */}
+      <div className={styles.headerStrip} />
+
+      {/* 2-column layout */}
+      <div className={styles.content}>
+        {/* Left column: Form */}
+        <div className={styles.formColumn}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <h2 className={styles.title}>{title}</h2>
+
+            <div className={styles.field}>
+              <label className={styles.label}>{fromLabel}</label>
+              <select
+                className={styles.select}
+                value={formData.from}
+                onChange={(e) => handleChange('from', e.target.value)}
+              >
+                <option value="">Select account</option>
+                {defaultAccounts.map((acc) => (
+                  <option key={acc.value} value={acc.value}>
+                    {acc.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>{toLabel}</label>
+              <select
+                className={styles.select}
+                value={formData.to}
+                onChange={(e) => handleChange('to', e.target.value)}
+              >
+                <option value="">Select recipient</option>
+                {defaultPayees.map((payee) => (
+                  <option key={payee.value} value={payee.value}>
+                    {payee.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>{amountLabel}</label>
+              <div className={styles.amountWrapper}>
+                <span className={styles.currency}>$</span>
+                <input
+                  type="number"
+                  className={styles.amountInput}
+                  value={formData.amount}
+                  onChange={(e) => handleChange('amount', e.target.value)}
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Reference (optional)</label>
+              <input
+                type="text"
+                className={styles.input}
+                value={formData.reference}
+                onChange={(e) => handleChange('reference', e.target.value)}
+                placeholder="Add a reference"
+                maxLength={50}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={!isValid}
+            >
+              {submitLabel}
+            </button>
+          </form>
+        </div>
+
+        {/* Right column: Single card Atomic container */}
+        <div className={styles.cardColumn}>
+          <SingleCard containerId={containerId} />
+        </div>
       </div>
-
-      {/* Form section */}
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h2 className={styles.title}>{title}</h2>
-
-        <div className={styles.field}>
-          <label className={styles.label}>{fromLabel}</label>
-          <select
-            className={styles.select}
-            value={formData.from}
-            onChange={(e) => handleChange('from', e.target.value)}
-          >
-            <option value="">Select account</option>
-            {defaultAccounts.map((acc) => (
-              <option key={acc.value} value={acc.value}>
-                {acc.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>{toLabel}</label>
-          <select
-            className={styles.select}
-            value={formData.to}
-            onChange={(e) => handleChange('to', e.target.value)}
-          >
-            <option value="">Select recipient</option>
-            {defaultPayees.map((payee) => (
-              <option key={payee.value} value={payee.value}>
-                {payee.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>{amountLabel}</label>
-          <div className={styles.amountWrapper}>
-            <span className={styles.currency}>$</span>
-            <input
-              type="number"
-              className={styles.amountInput}
-              value={formData.amount}
-              onChange={(e) => handleChange('amount', e.target.value)}
-              placeholder="0.00"
-              min="0"
-              step="0.01"
-            />
-          </div>
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label}>Reference (optional)</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.reference}
-            onChange={(e) => handleChange('reference', e.target.value)}
-            placeholder="Add a reference"
-            maxLength={50}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={!isValid}
-        >
-          {submitLabel}
-        </button>
-      </form>
     </div>
   );
 }
