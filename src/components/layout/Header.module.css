@@ -18,9 +18,9 @@
   align-items: center;
   justify-content: center;
   min-height: 0;
-  /* Slight negative margin to compensate for SDK card internal padding */
-  margin-top: -4px;
-  margin-bottom: -4px;
+  /* Negative margin to compensate for SDK card internal padding (more on bottom) */
+  margin-top: 0;
+  margin-bottom: -8px;
 }
 
 .actions {
