@@ -1,9 +1,11 @@
 /**
  * Header Component
- * Blue header bar - minimal, clean design
+ * Blue header bar with banner container and notification bell
  * The notification bell triggers the Atomic SDK launcher
  */
 
+import { SingleCard } from '../atomic/SingleCard';
+import { CONTAINERS } from '../../constants/atomic';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -14,8 +16,10 @@ interface HeaderProps {
 export function Header({ onBellClick, badgeCount = 0 }: HeaderProps) {
   return (
     <header className={styles.header}>
-      {/* Empty left side for balance */}
-      <div className={styles.spacer} />
+      {/* Banner container - single card in header */}
+      <div className={styles.bannerArea}>
+        <SingleCard containerId={CONTAINERS.banner} minHeight={0} />
+      </div>
 
       {/* Bell icon on the right - triggers the Actions launcher */}
       <div className={styles.actions}>

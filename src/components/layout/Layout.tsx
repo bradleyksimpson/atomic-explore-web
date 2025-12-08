@@ -8,7 +8,6 @@ import { Outlet } from 'react-router-dom';
 import AtomicSDK from '@atomic.io/action-cards-web-sdk';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
-import { BannerContainer } from './BannerContainer';
 import { CONTAINERS } from '../../constants/atomic';
 import styles from './Layout.module.css';
 
@@ -93,9 +92,6 @@ export function Layout() {
 
   return (
     <div className={styles.layout}>
-      {/* Top banner - full width, above everything */}
-      <BannerContainer />
-
       <div className={styles.main}>
         {/* Sidebar navigation */}
         <Sidebar />

@@ -27,20 +27,32 @@ export function AccountList({ accounts, onAccountClick }: AccountListProps) {
 }
 
 // Demo accounts matching iOS app
+// Balances use seeded pseudo-random values for consistency
+// Using a simple formula based on account ID hash for reproducible "random" values
+function seededRandom(seed: string): number {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash % 10000) / 10000;
+}
+
 export const demoAccounts: Account[] = [
   {
     id: 'everyday',
     name: 'Everyday Spending',
     accountNumber: '12-3456-7890123-00',
-    balance: 1234.56 + Math.random() * 1000,
+    balance: 1000 + seededRandom('everyday-2024') * 1500, // ~$1,000 - $2,500
     thumbnail: 'everyday',
     type: 'everyday',
   },
   {
     id: 'savings',
-    name: 'Rainy Day Savings',
+    name: 'Savings',
     accountNumber: '12-3456-7890124-00',
-    balance: 100 + Math.random() * 1900,
+    balance: 500 + seededRandom('savings-2024') * 1500, // ~$500 - $2,000
     thumbnail: 'savings',
     type: 'savings',
   },
@@ -48,7 +60,7 @@ export const demoAccounts: Account[] = [
     id: 'credit',
     name: 'Credit Card',
     accountNumber: '****-****-****-4567',
-    balance: -(Math.random() * 500 + 200),
+    balance: -(200 + seededRandom('credit-2024') * 600), // ~-$200 - -$800
     thumbnail: 'credit',
     type: 'credit',
   },
@@ -56,7 +68,7 @@ export const demoAccounts: Account[] = [
     id: 'homeloan',
     name: 'Home Loan',
     accountNumber: '12-3456-7890126-00',
-    balance: -(290000 + Math.random() * 10000),
+    balance: -(290000 + seededRandom('homeloan-2024') * 15000), // ~-$290k - -$305k
     thumbnail: 'loan',
     type: 'loan',
   },
@@ -64,7 +76,7 @@ export const demoAccounts: Account[] = [
     id: 'kiwisaver',
     name: 'KiwiSaver',
     accountNumber: '98-7654-3210987-00',
-    balance: 30000 + Math.random() * 20000,
+    balance: 30000 + seededRandom('kiwisaver-2024') * 20000, // ~$30k - $50k
     thumbnail: 'investment',
     type: 'investment',
   },

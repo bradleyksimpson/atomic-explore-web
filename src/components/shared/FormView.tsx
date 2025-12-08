@@ -28,7 +28,7 @@ interface FormData {
 
 const defaultAccounts = [
   { value: 'everyday', label: 'Everyday Spending - $1,234.56' },
-  { value: 'savings', label: 'Rainy Day Savings - $1,500.00' },
+  { value: 'savings', label: 'Savings - $1,500.00' },
   { value: 'credit', label: 'Credit Card - -$450.00' },
 ];
 
