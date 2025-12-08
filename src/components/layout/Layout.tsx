@@ -1,6 +1,6 @@
 /**
  * Main Layout Component
- * Wraps the entire application with banner, header, sidebar, and content area
+ * Wraps the entire application with header, sidebar, and content area
  */
 
 import { useEffect, useRef, useState, useCallback } from 'react';
@@ -8,61 +8,28 @@ import { Outlet } from 'react-router-dom';
 import AtomicSDK from '@atomic.io/action-cards-web-sdk';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
+import { MessagesPanel } from './MessagesPanel';
 import { CONTAINERS } from '../../constants/atomic';
 import styles from './Layout.module.css';
 
-// Type for the launcher instance
-interface LauncherInstance {
-  setOpen: (open: boolean) => void;
-  stop: () => void;
-}
-
 export function Layout() {
-  const launcherRef = useRef<LauncherInstance | null>(null);
   const modalRef = useRef<unknown>(null);
   const [cardCount, setCardCount] = useState(0);
-  const [isLauncherOpen, setIsLauncherOpen] = useState(false);
+  const [isMessagesPanelOpen, setIsMessagesPanelOpen] = useState(false);
 
-  // Handle bell click - toggle the launcher open/closed
+  // Handle bell click - toggle the messages panel
   const handleBellClick = useCallback(() => {
-    if (launcherRef.current) {
-      const newState = !isLauncherOpen;
-      launcherRef.current.setOpen(newState);
-      setIsLauncherOpen(newState);
-    }
-  }, [isLauncherOpen]);
+    setIsMessagesPanelOpen((prev) => !prev);
+  }, []);
 
-  // Initialize the Atomic launcher for messages (Actions popover)
-  useEffect(() => {
-    const instance = AtomicSDK.launch({
-      streamContainerId: CONTAINERS.secureMessages,
-      customStrings: {
-        cardListTitle: 'Actions',
-      },
-      enabledUiElements: {
-        cardListHeader: true,
-        cardListToast: true,
-        // Hide the default launcher button - we use our own bell icon
-        launcherButton: {
-          disabled: true,
-        },
-      },
-      onCardCountChanged: (visible, total) => {
-        console.log('Message cards:', visible, total);
-        setCardCount(total);
-      },
-      onLauncherToggled: (isOpen?: boolean) => {
-        setIsLauncherOpen(isOpen ?? false);
-      },
-    });
+  // Handle messages panel close
+  const handleMessagesPanelClose = useCallback(() => {
+    setIsMessagesPanelOpen(false);
+  }, []);
 
-    launcherRef.current = instance as LauncherInstance;
-
-    return () => {
-      if (launcherRef.current) {
-        launcherRef.current.stop();
-      }
-    };
+  // Handle card count updates from messages panel
+  const handleCardCountChanged = useCallback((count: number) => {
+    setCardCount(count);
   }, []);
 
   // Initialize the overlay/modal container
@@ -107,7 +74,13 @@ export function Layout() {
         </div>
       </div>
 
-      {/* The Atomic launcher renders its popover when setOpen(true) is called */}
+      {/* Standalone messages panel - triggered by bell icon */}
+      <MessagesPanel
+        isOpen={isMessagesPanelOpen}
+        onClose={handleMessagesPanelClose}
+        onCardCountChanged={handleCardCountChanged}
+      />
+
       {/* The modal container renders itself when cards are present */}
     </div>
   );

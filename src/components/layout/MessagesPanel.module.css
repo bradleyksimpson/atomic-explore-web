@@ -1,0 +1,94 @@
+/* Messages Panel Styles */
+/* Standalone embedded stream container positioned from the bell icon */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing-lg);
+}
+
+.panel {
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - var(--spacing-lg) * 2);
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-card-border);
+  background-color: var(--color-card-bg);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.closeButton:hover {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+.container {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 200px;
+}
+
+/* Style the Atomic SDK iframe inside */
+.container :global(.atomic-sdk-frame) {
+  width: 100%;
+  border: none;
+  min-height: 300px;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .backdrop {
+    padding: 0;
+  }
+
+  .panel {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
