@@ -3,9 +3,11 @@
  * Navigation sidebar - web adaptation of iOS tab bar
  */
 
+import { useRef, useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SingleCard } from '../atomic/SingleCard';
 import { CONTAINERS } from '../../constants/atomic';
+import { eventsService } from '../../services/eventsService';
 import styles from './Sidebar.module.css';
 
 interface NavItem {
@@ -42,11 +44,61 @@ const navItems: NavItem[] = [
   },
 ];
 
+// Double-tap detection threshold in milliseconds
+const DOUBLE_TAP_THRESHOLD = 300;
+
 export function Sidebar() {
+  const lastTapRef = useRef<number>(0);
+  const [feedbackState, setFeedbackState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  // Handle double-tap on logo to send resetBannerWeb event
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
+    const now = Date.now();
+    const timeSinceLastTap = now - lastTapRef.current;
+
+    if (timeSinceLastTap < DOUBLE_TAP_THRESHOLD && timeSinceLastTap > 0) {
+      // Double-tap detected - prevent navigation and send event
+      e.preventDefault();
+      e.stopPropagation();
+
+      setFeedbackState('sending');
+
+      eventsService.sendResetBannerEvent()
+        .then(() => {
+          console.log('resetBannerWeb event sent successfully');
+          setFeedbackState('success');
+          setTimeout(() => setFeedbackState('idle'), 2000);
+        })
+        .catch((error) => {
+          console.error('Failed to send resetBannerWeb event:', error);
+          setFeedbackState('error');
+          setTimeout(() => setFeedbackState('idle'), 3000);
+        });
+
+      lastTapRef.current = 0; // Reset to prevent triple-tap
+    } else {
+      lastTapRef.current = now;
+    }
+  }, []);
+
+  // Determine logo section class based on feedback state
+  const logoSectionClass = `${styles.logoSection} ${
+    feedbackState === 'sending' ? styles.logoSending :
+    feedbackState === 'success' ? styles.logoSuccess :
+    feedbackState === 'error' ? styles.logoError : ''
+  }`;
+
   return (
     <aside className={styles.sidebar}>
-      <NavLink to="/" className={styles.logoSection}>
+      <NavLink to="/" className={logoSectionClass} onClick={handleLogoClick}>
         <DemoBankLogo />
+        {feedbackState !== 'idle' && (
+          <span className={styles.feedbackIndicator}>
+            {feedbackState === 'sending' && '⏳'}
+            {feedbackState === 'success' && '✓'}
+            {feedbackState === 'error' && '✗'}
+          </span>
+        )}
       </NavLink>
 
       <nav className={styles.nav}>

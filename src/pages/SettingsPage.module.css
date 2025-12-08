@@ -250,3 +250,21 @@
   color: var(--color-brand-blue);
   font-weight: var(--font-weight-semibold);
 }
+
+/* Developer Tools */
+.developerAction {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.successMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-success, #22c55e);
+}
+
+.errorMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-alert);
+}
