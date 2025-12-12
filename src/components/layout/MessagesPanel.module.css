@@ -70,14 +70,14 @@
 .container {
   flex: 1;
   overflow-y: auto;
-  min-height: 200px;
+  min-height: 100px;
 }
 
-/* Style the Atomic SDK iframe inside */
+/* Style the Atomic SDK iframe inside - let it auto-size */
 .container :global(.atomic-sdk-frame) {
   width: 100%;
   border: none;
-  min-height: 300px;
+  /* Height is managed by SDK auto-sizing (third param = true in embed call) */
 }
 
 /* Mobile responsive */

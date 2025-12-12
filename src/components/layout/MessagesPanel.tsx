@@ -31,20 +31,27 @@ export function MessagesPanel({ isOpen, onClose, onCardCountChanged }: MessagesP
 
     console.log('[MessagesPanel] Initializing embed for container:', CONTAINERS.secureMessages);
 
-    embedRef.current = AtomicSDK.embed(containerRef.current, {
-      streamContainerId: CONTAINERS.secureMessages,
-      customStrings: {
-        cardListTitle: 'Actions',
+    embedRef.current = AtomicSDK.embed(
+      containerRef.current,
+      {
+        streamContainerId: CONTAINERS.secureMessages,
+        customStrings: {
+          cardListTitle: 'Actions',
+        },
+        enabledUiElements: {
+          cardListHeader: true,
+          cardListToast: true,
+        },
+        onCardCountChanged: (_visible: number, total: number) => {
+          console.log('[MessagesPanel] Card count changed:', total);
+          onCardCountChanged?.(total);
+        },
+        onSizeChanged: (width: number, height: number) => {
+          console.log('[MessagesPanel] Size changed:', width, height);
+        },
       },
-      enabledUiElements: {
-        cardListHeader: true,
-        cardListToast: true,
-      },
-      onCardCountChanged: (_visible: number, total: number) => {
-        console.log('[MessagesPanel] Card count changed:', total);
-        onCardCountChanged?.(total);
-      },
-    });
+      true // Enable auto-sizing - iframe height adjusts to content
+    );
   }, [onCardCountChanged]);
 
   // Stop the embed when panel closes
