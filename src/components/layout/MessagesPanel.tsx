@@ -21,7 +21,15 @@ export function MessagesPanel({ isOpen, onClose, onCardCountChanged }: MessagesP
 
   // Initialize the embedded stream container
   const initEmbed = useCallback(() => {
-    if (!containerRef.current || embedRef.current) return;
+    if (!containerRef.current) return;
+
+    // Stop any existing embed before creating a new one
+    if (embedRef.current?.stop) {
+      embedRef.current.stop();
+      embedRef.current = null;
+    }
+
+    console.log('[MessagesPanel] Initializing embed for container:', CONTAINERS.secureMessages);
 
     embedRef.current = AtomicSDK.embed(containerRef.current, {
       streamContainerId: CONTAINERS.secureMessages,
@@ -33,29 +41,39 @@ export function MessagesPanel({ isOpen, onClose, onCardCountChanged }: MessagesP
         cardListToast: true,
       },
       onCardCountChanged: (_visible: number, total: number) => {
+        console.log('[MessagesPanel] Card count changed:', total);
         onCardCountChanged?.(total);
       },
     });
   }, [onCardCountChanged]);
 
-  // Initialize when panel opens
+  // Stop the embed when panel closes
+  const stopEmbed = useCallback(() => {
+    if (embedRef.current?.stop) {
+      console.log('[MessagesPanel] Stopping embed');
+      embedRef.current.stop();
+      embedRef.current = null;
+    }
+  }, []);
+
+  // Initialize when panel opens, cleanup when it closes
   useEffect(() => {
     if (isOpen) {
       // Small delay to ensure DOM is ready
       const timer = setTimeout(initEmbed, 50);
       return () => clearTimeout(timer);
+    } else {
+      // Stop the embed when panel closes
+      stopEmbed();
     }
-  }, [isOpen, initEmbed]);
+  }, [isOpen, initEmbed, stopEmbed]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (embedRef.current?.stop) {
-        embedRef.current.stop();
-        embedRef.current = null;
-      }
+      stopEmbed();
     };
-  }, []);
+  }, [stopEmbed]);
 
   // Handle click outside to close
   const handleBackdropClick = (e: React.MouseEvent) => {
